@@ -1,30 +1,31 @@
 package fi.serviceflow.fizzbuzz.ws;
 
-import org.apache.commons.lang3.StringUtils;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
+
 /**
  * @author Alejandro López(alejandro) {@literal <Alejandro.Lopez@xplain.net>} on 08/01/2018.
  */
-@WebServlet(
-
-)
 public class FizzBuzzServlet extends HttpServlet {
+
+  private static final Logger LOGGER = Logger.getLogger(FizzBuzzServlet.class);
 
   private static final String DIVISIBLE_BY_3_AND_5 = "Fizz Buzz";
   private static final String DIVISIBLE_BY_3 = "Fizz";
   private static final String DIVISIBLE_BY_5 = "Buzz";
 
-  public String fizzBuzz(String inputString) throws FizzBuzzException {
+  public static String fizzBuzz(String inputString) throws FizzBuzzException {
+    LOGGER.info(String.format("Playing fizz buzz game, input string: %s.", inputString));
     final String[] split = inputString.split("\\s*,\\s*");
     final List<String> result = new ArrayList<String>(split.length);
     for (String input : split) {
@@ -33,22 +34,32 @@ public class FizzBuzzServlet extends HttpServlet {
         try {
           number = Integer.parseInt(input);
         } catch (NumberFormatException e) {
-          throw new FizzBuzzException("Input need to be a collection of numbers, example: 5, 3, 8");
+          final String message = String.format(
+                  "Input need to be a collection of numbers, example: 5, 3, 8. This string is not a valid number: %s",
+                  input);
+          LOGGER.warn(message);
+          throw new FizzBuzzException(message);
         }
+        final String nextAddition;
         if (number % 3 == 0) {
           if (number % 5 == 0) {
-            result.add(DIVISIBLE_BY_3_AND_5);
+            nextAddition = DIVISIBLE_BY_3_AND_5;
           } else {
-            result.add(DIVISIBLE_BY_3);
+            nextAddition = DIVISIBLE_BY_3;
           }
         } else if (number % 5 == 0) {
-          result.add(DIVISIBLE_BY_5);
+          nextAddition = DIVISIBLE_BY_5;
         } else {
-          result.add(input);
+          nextAddition = input;
         }
+        result.add(nextAddition);
+        if (LOGGER.isDebugEnabled())
+          LOGGER.debug(String.format("Converting %s into: %s.", number, nextAddition));
       }
     }
-    return StringUtils.join(result, ", ");
+    final String stringResult = StringUtils.join(result, ", ");
+    LOGGER.info(String.format("Game played, result: %s", stringResult));
+    return stringResult;
   }
 
   @Override
@@ -64,20 +75,28 @@ public class FizzBuzzServlet extends HttpServlet {
       out.println("<!DOCTYPE html>");
       out.println("<html><head>");
       out.println("<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>");
-      out.println("<title>Hello, World</title></head>");
+      out.println("<title>Simple Fizz Buzz</title></head>");
       out.println("<body>");
-      out.println("<h1>Hello, world!</h1>");  // says Hello
-      // Echo client's request information
-      out.println("<p>Request URI: " + req.getRequestURI() + "</p>");
-      out.println("<p>Protocol: " + req.getProtocol() + "</p>");
-      out.println("<p>PathInfo: " + req.getPathInfo() + "</p>");
-      out.println("<p>Remote Address: " + req.getRemoteAddr() + "</p>");
-      // Generate a random number upon each request
-      out.println("<p>A Random Number: <strong>" + Math.random() + "</strong></p>");
+      String inputFizzBuzz = req.getParameter("input-fizz-buzz");
+      if (inputFizzBuzz != null && !inputFizzBuzz.isEmpty()) {
+        try {
+          final String result = fizzBuzz(inputFizzBuzz);
+          out.println("<p>" + result + "</p>");
+        } catch (FizzBuzzException e) {
+          out.print("<p style=\"color:red\">" + e.getMessage() + "</p>");
+        }
+
+      }
       out.println("</body>");
       out.println("</html>");
     } finally {
       out.close();  // Always close the output writer
     }
+  }
+
+  @Override
+  protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+          throws ServletException, IOException {
+    doGet(req, resp);
   }
 }

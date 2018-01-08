@@ -18,9 +18,24 @@
 <form method="get">
     <label for="input-fizz-buzz">
         Input box
-        <input id="input-fizz-buzz" type="text" name="author" placeholder="eg: 1, 7, 5, 3">
+        <input id="input-fizz-buzz" type="text" name="input-fizz-buzz" placeholder="eg: 1, 7, 5, 3">
     </label>
     <input type="submit" value="Play">
+    <%
+        String inputFizzBuzz = request.getParameter("input-fizz-buzz");
+        if (inputFizzBuzz != null) {
+    %>
+    <%@ page import = "fi.serviceflow.fizzbuzz.ws.FizzBuzzServlet" %>
+    <h2>The result of your last play!</h2>
+    <%
+        try {%>
+    <strong><%= FizzBuzzServlet.fizzBuzz(inputFizzBuzz) %></strong>
+    <%
+            } catch (Exception e) {%>
+    <p style="color:red"><%= e.getMessage() %></p>
+            <%}
+        }
+    %>
 </form>
 </body>
 </html>
