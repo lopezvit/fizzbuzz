@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="EclipseCodeFormatterProjectSettings">
+    <option name="projectSpecificProfile">
+      <ProjectSpecificProfile>
+        <option name="formatter" value="ECLIPSE" />
+      </ProjectSpecificProfile>
+    </option>
+    <option name="selectedGlobalProfile">
+      <Settings>
+        <option name="disabledFileTypes" value="*.xml;*.sql;" />
+        <option name="formatSeletedTextInAllFileTypes" value="false" />
+        <option name="formatter" value="ECLIPSE" />
+        <option name="id" value="1471437727605" />
+        <option name="name" value="Xplain" />
+        <option name="pathToConfigFileJava" value="E:/workspace/configuration/Xplain.xml" />
+        <option name="selectedJavaProfile" value="Xplain" />
+        <option name="useForLiveTemplates" value="true" />
+      </Settings>
+    </option>
+  </component>
+</project>
