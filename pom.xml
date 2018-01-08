@@ -6,7 +6,22 @@
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
   <name>FizzBuzz Maven Webapp</name>
-  <url>http://maven.apache.org</url>
+  <url>https://github.com/lopezvit/fizzbuzz</url>
+  <scm>
+    <url>https://github.com/lopezvit/fizzbuzz</url>
+    <connection>scm:git:git://github.com/lopezvit/fizzbuzz.git</connection>
+    <developerConnection>scm:git:git@github.com:lopezvit/fizzbuzz.git</developerConnection>
+  </scm>
+
+  <developers>
+    <developer>
+      <email>lopezvit@gmail.com</email>
+      <name>Alejandro López</name>
+      <url>https://github.com/lopezvit</url>
+      <id>lopezvit</id>
+    </developer>
+  </developers>
+
   <dependencies>
     <dependency>
       <groupId>org.apache.cxf</groupId>
