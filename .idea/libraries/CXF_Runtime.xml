@@ -132,6 +132,7 @@
     <JAVADOC />
     <SOURCES>
       <root url="jar://$USER_HOME$/.ideaLibSources/commons-lang-2.6-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.ideaLibSources/spring-web-3.2.14.RELEASE-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

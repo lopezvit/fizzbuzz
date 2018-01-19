@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        >
+<head>
+  <meta charset="UTF-8">
+  <title>Fizz Buzz Game</title>
+  <link rel="stylesheet" th:href="@{/css/simple.css}"
+        href="../../css/simple.css"/>
+</head>
+<body>
+<h1 layout:fragment="header">Welcomed to the amazing game of Fizz Buzz.</h1>
+
+<p>To Start, write a number and press <em>Play</em>.</p>
+
+<div layout:fragment="content" class="container">
+
+  <form method="post" th:action="@{/view}" th:object="${message}"
+        action="#">
+    <label for="inputFizzBuzz">
+      Input box
+      <input id="inputFizzBuzz" type="text" name="inputFizzBuzz" placeholder="eg: 1, 7, 5, 3"
+             th:field="*{inputFizzBuzz}">
+    </label>
+    <input type="submit" value="Play">
+  </form>
+  <div th:if="${response}">
+    <h2>The result of your last play!</h2>
+    <strong th:text="${response}"></strong>
+  </div>
+  <div th:if="${error}">
+    <p style="color:red" th:text="${error}"></p>
+  </div>
+</div>
+</body>
+</html>

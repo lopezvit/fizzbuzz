@@ -3,8 +3,7 @@
   <component name="Encoding" native2AsciiForPropertiesFiles="true">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/fi/serviceflow/fizzbuzz/ws/FizzBuzzException.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/fi/serviceflow/fizzbuzz/ws/FizzBuzzServlet.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/test/java/fi/serviceflow/fizzbuzz/ws/FizzBuzzServletTest.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/test/java/fi/serviceflow/fizzbuzz/services/FizzBuzzServiceTest.java" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>
